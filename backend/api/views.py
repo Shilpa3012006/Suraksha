@@ -471,27 +471,31 @@ def verify_evidence(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def add_trusted_contact(request):
-
-    serializer = TrustedContactSerializer(
-        data=request.data
-    )
+    serializer = TrustedContactSerializer(data=request.data)
 
     if serializer.is_valid():
-
         contact = serializer.save(
             user=request.user,
             access_token=secrets.token_urlsafe(48)
         )
 
+        trusted_access_link = (
+            f"http://localhost:5173/trusted-access/"
+            f"{contact.access_token}/"
+        )
+
         send_mail(
-            subject="Suraksha-AI Trusted Evidence Access",
+            subject="Suraksha Trusted Evidence Access",
             message=(
                 f"Hello {contact.name},\n\n"
                 f"You have been added as a trusted contact by "
                 f"{request.user.username}.\n\n"
-                f"Your secure evidence access link will be provided here "
-                f"once the trusted evidence page is implemented.\n\n"
-                f"Suraksha-AI"
+                f"You can securely access the shared evidence library "
+                f"using the link below:\n\n"
+                f"{trusted_access_link}\n\n"
+                f"This link provides access to the evidence currently "
+                f"available in the Suraksha Evidence Library.\n\n"
+                f"Suraksha"
             ),
             from_email=None,
             recipient_list=[contact.email],
