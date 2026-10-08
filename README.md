@@ -1,4 +1,4 @@
-# Suraksha AI
+# Suraksha
 
 Domestic Violence Evidence Preservation Platform
 
