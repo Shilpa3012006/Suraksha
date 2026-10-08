@@ -10,4 +10,4 @@ Domestic Violence Evidence Preservation Platform
 - Tamper-resistant evidence preservation
 - Secure cloud storage
 - Trusted contact backup mechanism
-- Structured legal report generation
+- Structured report generation
